@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">pathFinder</string>
+    <string name="action_settings">Settings</string>
+	<string name="mapKey">AIzaSyBELPxm6TUGZds-zvPLhwcrs9QLEvQy6lY</string>
+</resources>

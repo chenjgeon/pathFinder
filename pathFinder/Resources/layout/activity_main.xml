@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:id="@+id/placeLayout"
+            android:clickable="true"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="70dp">
+
+            <ImageView
+                android:id="@+id/blueBall"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/placeTextView"
+                android:text="Where to?"
+                android:textSize="16sp"
+                android:maxLines="1"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/blueBall"
+                android:layout_marginLeft="16dp"/>
+            
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:id="@+id/centerMarker"
+            android:src="@drawable/center_marker"/>
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/locationButton"
+            android:layout_gravity="center|right"
+            android:background="@drawable/roundedges"
+            android:src="@drawable/place"
+            android:tint="@color/colorAccent"/>
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:visibility="visible"
+            android:text="Get directions"
+            android:layout_gravity="center|bottom"
+            android:drawableLeft="@drawable/direction"
+            android:id="@+id/getDirectionButton"
+            android:paddingLeft="10dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:elevation="2dp"
+            android:translationZ="2dp"
+            android:layout_marginBottom="30dp"/>
+        
+    </FrameLayout>
+    
+</RelativeLayout>

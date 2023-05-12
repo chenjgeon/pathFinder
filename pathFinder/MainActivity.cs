@@ -1,10 +1,14 @@
 ﻿using Android;
 using Android.App;
+using Android.Content.PM;
+using Android.Gms.Location;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.OS;
 using Android.Runtime;
+using Android.Widget;
 using AndroidX.AppCompat.App;
+using AndroidX.Core.App;
 
 namespace pathFinder
 {
@@ -12,11 +16,29 @@ namespace pathFinder
     public class MainActivity : AppCompatActivity, IOnMapReadyCallback
     {
         GoogleMap map;
+        FusedLocationProviderClient locationProviderClient;
+        Android.Locations.Location myLastLocation;
+        private LatLng myPosition;
 
         readonly string[] permissionGroup =
+    {
+        Manifest.Permission.AccessCoarseLocation, Manifest.Permission.AccessFineLocation
+    };
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
-            Manifest.Permission.AccessCoarseLocation, Manifest.Permission.AccessFineLocation
-        };
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            if (grantResults.Length < 1)
+            {
+                return;
+            }
+
+            if (grantResults[0] == Android.Content.PM.Permission.Granted &&
+                grantResults[1] == Android.Content.PM.Permission.Granted)
+            {
+                displayLocationAsync();
+            }
+        }
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -38,6 +60,45 @@ namespace pathFinder
             map = googleMap;
 
             map.UiSettings.ZoomControlsEnabled = true;
+
+            if (checkPermission())
+            {
+                displayLocationAsync();
+            }
+        }
+        // needs to be fixed
+        async void displayLocationAsync()
+        {
+            if (locationProviderClient == null)
+            {
+                locationProviderClient = LocationServices.GetFusedLocationProviderClient(this);
+            }
+
+            myLastLocation = await locationProviderClient.GetLastLocationAsync();
+
+            if (myLastLocation != null)
+            {
+                myPosition = new LatLng(myLastLocation.Latitude, myLastLocation.Longitude);
+                map.AnimateCamera(CameraUpdateFactory.NewLatLngZoom(myPosition, 15));
+            }
+            else
+            {
+                Toast.MakeText(this, "Location is null", ToastLength.Long).Show();
+            }
+        }
+        bool checkPermission()
+        {
+            bool permissionGranted = false;
+            if (ActivityCompat.CheckSelfPermission(this, Manifest.Permission.AccessCoarseLocation) != Android.Content.PM.Permission.Granted &&
+                ActivityCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) != Android.Content.PM.Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(this, permissionGroup, 0);
+            }
+            else
+            {
+                permissionGranted = true;
+            }
+            return permissionGranted;
         }
     }
 }

@@ -3804,7 +3804,7 @@ namespace pathFinder
 			public const int blocking = 2131230787;
 			
 			// aapt resource value: 0x7F080044
-			public const int blueBall = 2131230788;
+			public const int blueball = 2131230788;
 			
 			// aapt resource value: 0x7F080045
 			public const int bottom = 2131230789;
@@ -4901,34 +4901,40 @@ namespace pathFinder
 			public const int fallback_menu_item_share_link = 2131558456;
 			
 			// aapt resource value: 0x7F0D0039
-			public const int hide_bottom_view_on_scroll_behavior = 2131558457;
+			public const int get_directions = 2131558457;
 			
 			// aapt resource value: 0x7F0D003A
-			public const int mapKey = 2131558458;
+			public const int hide_bottom_view_on_scroll_behavior = 2131558458;
 			
 			// aapt resource value: 0x7F0D003B
-			public const int mtrl_chip_close_icon_content_description = 2131558459;
+			public const int mapKey = 2131558459;
 			
 			// aapt resource value: 0x7F0D003C
-			public const int password_toggle_content_description = 2131558460;
+			public const int mtrl_chip_close_icon_content_description = 2131558460;
 			
 			// aapt resource value: 0x7F0D003D
-			public const int path_password_eye = 2131558461;
+			public const int password_toggle_content_description = 2131558461;
 			
 			// aapt resource value: 0x7F0D003E
-			public const int path_password_eye_mask_strike_through = 2131558462;
+			public const int path_password_eye = 2131558462;
 			
 			// aapt resource value: 0x7F0D003F
-			public const int path_password_eye_mask_visible = 2131558463;
+			public const int path_password_eye_mask_strike_through = 2131558463;
 			
 			// aapt resource value: 0x7F0D0040
-			public const int path_password_strike_through = 2131558464;
+			public const int path_password_eye_mask_visible = 2131558464;
 			
 			// aapt resource value: 0x7F0D0041
-			public const int search_menu_title = 2131558465;
+			public const int path_password_strike_through = 2131558465;
 			
 			// aapt resource value: 0x7F0D0042
-			public const int status_bar_notification_info_overflow = 2131558466;
+			public const int search_menu_title = 2131558466;
+			
+			// aapt resource value: 0x7F0D0043
+			public const int status_bar_notification_info_overflow = 2131558467;
+			
+			// aapt resource value: 0x7F0D0044
+			public const int where_to = 2131558468;
 			
 			static String()
 			{

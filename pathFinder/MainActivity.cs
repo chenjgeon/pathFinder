@@ -19,6 +19,7 @@ namespace pathFinder
         FusedLocationProviderClient locationProviderClient;
         Android.Locations.Location myLastLocation;
         private LatLng myPosition;
+        Button findDirection;
 
         readonly string[] permissionGroup =
     {
@@ -51,7 +52,19 @@ namespace pathFinder
             //references
             SupportMapFragment mapFragment = (SupportMapFragment)SupportFragmentManager.FindFragmentById(Resource.Id.map);
             mapFragment.GetMapAsync(this);
+            findDirection = (Button)FindViewById(Resource.Id.getDirectionButton);
+
+            findDirection.Click += FindDirection_Click;
         }
+
+        private void FindDirection_Click(object sender, System.EventArgs e)
+        {
+            if (checkPermission())
+            {
+                displayLocationAsync();
+            }
+        }
+
         public void OnMapReady(GoogleMap googleMap)
         {
             var mapStyle = MapStyleOptions
@@ -60,11 +73,6 @@ namespace pathFinder
             map = googleMap;
 
             map.UiSettings.ZoomControlsEnabled = true;
-
-            if (checkPermission())
-            {
-                displayLocationAsync();
-            }
         }
         // needs to be fixed
         async void displayLocationAsync()

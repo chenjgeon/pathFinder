@@ -4,11 +4,15 @@ using Android.Content.PM;
 using Android.Gms.Location;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
+using Android.Locations;
 using Android.OS;
 using Android.Runtime;
 using Android.Widget;
 using AndroidX.AppCompat.App;
 using AndroidX.Core.App;
+using PathFinder.Helpers;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace pathFinder
 {
@@ -20,6 +24,9 @@ namespace pathFinder
         Android.Locations.Location myLastLocation;
         private LatLng myPosition;
         Button findDirection;
+
+        TextView placeTextView;
+        MapHelpers mapHelpers = new MapHelpers();
 
         readonly string[] permissionGroup =
     {
@@ -55,6 +62,7 @@ namespace pathFinder
             findDirection = (Button)FindViewById(Resource.Id.getDirectionButton);
 
             findDirection.Click += FindDirection_Click;
+            placeTextView = FindViewById<TextView>(Resource.Id.placeTextView);
         }
 
         private void FindDirection_Click(object sender, System.EventArgs e)
@@ -73,7 +81,37 @@ namespace pathFinder
             map = googleMap;
 
             map.UiSettings.ZoomControlsEnabled = true;
+
+            map.CameraMoveStarted += Map_CameraMoveStarted;
+            map.CameraIdle += Map_CameraIdle;
         }
+        IList<Address> addresses= new List<Address>();
+        Geocoder geocoder;
+        private async void Map_CameraIdle(object sender, System.EventArgs e)
+        {
+            var position = map.CameraPosition.Target;
+            geocoder = new Geocoder(this);
+            addresses = await geocoder.GetFromLocationAsync(position.Latitude, position.Longitude, 1);
+
+            #region
+            if (addresses != null && addresses.Count > 0)
+            {
+                Address addresss = addresses[0];
+                string formattedAddress = addresss.GetAddressLine(0);
+                placeTextView.Text = formattedAddress.ToUpper();
+            }
+           else
+            {
+                placeTextView.Text = "Where to?";
+            }
+            #endregion
+        }
+
+        private void Map_CameraMoveStarted(object sender, GoogleMap.CameraMoveStartedEventArgs e)
+        {
+            
+        }
+
         // needs to be fixed
         async void displayLocationAsync()
         {
